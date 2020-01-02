@@ -1,50 +1,52 @@
 'use strict'
 
-import { Server as WebSocketServer } from 'ws'
-import ip from 'ip'
-import * as app from './app'
+import fs from 'fs'
+import http from 'http'
+import {connects} from './socket'
 
-const template = 'index.html';
-const server = app.httpServer( (req, res) => {
-    app.index(template, req, res);
-})
-const wsServer = new WebSocketServer({
-    "server" : server,
-    "path"   : '/websock',
-    port: port
-})
-const port = 8889;
-export let connects = [];
+export const broadcast = message => {
+    connects.forEach((socket, i) => {
+        socket.send(message);
+    });
+}
 
-wsServer.on('connection', function connection(sock, req) {
-    app.log("webSocketServer connected!");
-    // Output connected IP address
-    const ip = req.connection.remoteAddress;
-    app.log("connected IP : " + ip);
+export const log = str => {
+    console.log((new Date).toString() + '\n"' + str + '"\n');
+}
 
-    // Store socket in array
-    connects.push(sock);
-    app.log('connected sockets : ' + connects.length);
+export const httpServer = (onRequest) => {
+    const _server = http.createServer();
 
-
-    // ----- When receiving a message -----
-    sock.on('message', message => {
-        app.log('received : ' + message);
-        app.broadcast(message);
+    _server.on('request', (req, res) => {
+        log('httpServer on request');
+        if (typeof onRequest === 'function') onRequest(req, res);
     });
 
-    // ----- When the socket is disconnected -----
-    sock.on('close', () => {
-        app.log('stopping client send "close"');
+    _server.on('close', () => {
+        log('httpServer closing');
+    });
 
-        // Exclude broken sockets from array
-        connects = connects.filter( (conn, i) => {
-            return (conn === sock) ? false : true;
+    return _server;
+}
+
+export const index = (template, req, res) => {
+    fs.stat(template, (err, stats) => {
+        if (err) return _error(err);
+        if (! stats.isFile()) return _error('not file');
+
+        fs.readFile(template, 'utf-8', (err, data) => {
+            if (err) return _error(err);
+
+            res.writeHead(200, {'Content-Type' : 'text/html' });
+            res.write(data);
+            res.end();
+            log('raed file and pirnt: ' + template);
         });
-
-        app.log('connected sockets : ' + connects.length);
     });
-});
+}
 
-server.listen(port);
-app.log('Server Start on address - ' + ip.address() + ' - port - ' + port + ' - ');
+export const _error = (res, err) => {
+    res.writeHead(500, {'Content-Type' : 'text/plain' });
+    res.end(err);
+    log(err);
+}
