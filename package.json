@@ -1,25 +1,24 @@
 {
-  "name": "Dr.NA_signaling",
-  "version": "1.0.0",
+  "name": "Dr.NA_webSocket",
+  "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d lib",
-    "start": "node lib/signaling.js"
+    "start": "node lib/server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/misotarozamurai/Dr.NA_signaling.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Masakatsu Shibata",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/misotarozamurai/Dr.NA_signaling/issues"
   },
   "homepage": "https://github.com/misotarozamurai/Dr.NA_signaling#readme",
   "dependencies": {
+    "ip": "^1.1.5",
     "ws": "^7.2.0"
   },
   "devDependencies": {
