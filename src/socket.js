@@ -2,18 +2,15 @@
 
 import { Server as WebSocketServer } from 'ws'
 import ip from 'ip'
+import config from 'config';
+
 import * as srv from './server'
 
-const template = 'index.html';
-const server = srv.httpServer( (req, res) => {
-    srv.index(template, req, res);
-})
+const httpServer = srv.httpServer();
+
 const wsServer = new WebSocketServer({
-    "server" : server,
-    "path"   : '/websock',
-    port: port
+    server : httpServer,
 })
-const port = 8889;
 export let connects = [];
 
 wsServer.on('connection', function connection(sock, req) {
@@ -46,5 +43,5 @@ wsServer.on('connection', function connection(sock, req) {
     });
 });
 
-server.listen(port);
-srv.log('Server Start on address - ' + ip.address() + ' - port - ' + port + ' - ');
+httpServer.listen(config.get('port'));
+srv.log('Server Start on address - ' + ip.address() + ' - port - ' + config.get('port') + ' - ');
