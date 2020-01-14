@@ -7,7 +7,8 @@ import config from 'config'
 
 const _serverOptions = {
     key: fs.readFileSync(config.get('KeyRoot') + config.get('FileNames.Key')),
-    cert: fs.readFileSync(config.get('KeyRoot') + config.get('FileNames.Cert'))
+    cert: fs.readFileSync(config.get('KeyRoot') + config.get('FileNames.Cert')),
+    ca: fs.readFileSync(config.get('KeyRoot') + config.get('FileNames.Chain'))
 }
 
 export const broadcast = (message,sock) => {
