@@ -6,10 +6,10 @@ import config from 'config';
 
 import * as srv from './server'
 
-const httpServer = srv.httpServer();
+const httpsServer = srv.httpServer();
 
 const wsServer = new WebSocketServer({
-    server : httpServer,
+    server : httpsServer,
 })
 export let connects = [];
 

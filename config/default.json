@@ -1,3 +1,10 @@
 {
-    "port": 8889
+    "Port": 8889,
+    "KeyRoot": "/etc/letsencrypt/live/dr-na.mysql.jp/",
+    "FileNames":{
+        "Key": "privkey.pem",
+        "Cert": "cert.pem",        
+        "Chain": "chain.pem",
+        "FullChain": "fullchain.pem"
+    }
 }
