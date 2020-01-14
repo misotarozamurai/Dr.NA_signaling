@@ -1,6 +1,6 @@
 'use strict'
 
-import https from 'http'
+import https from 'https'
 import {connects} from './socket'
 import fs from 'fs'
 import config from 'config'
