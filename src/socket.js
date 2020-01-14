@@ -6,7 +6,7 @@ import config from 'config';
 
 import * as srv from './server'
 
-const httpsServer = srv.httpServer();
+const httpsServer = srv.httpsServer();
 
 const wsServer = new WebSocketServer({
     server : httpsServer,
