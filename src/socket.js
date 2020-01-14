@@ -43,5 +43,5 @@ wsServer.on('connection', function connection(sock, req) {
     });
 });
 
-httpsServer.listen(config.get('port'));
-srv.log('Server Start on address - ' + ip.address() + ' - port - ' + config.get('port') + ' - ');
+httpsServer.listen(config.get('Port'));
+srv.log('Server Start on address - ' + ip.address() + ' - port - ' + config.get('Port') + ' - ');
