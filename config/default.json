@@ -1,6 +1,6 @@
 {
     "Port": 8889,
-    "KeyRoot": "/etc/letsencrypt/live/dr-na.mysql.jp/",
+    "KeyRoot": "/etc/letsencrypt/live/dr-na.mydns.jp/",
     "FileNames":{
         "Key": "privkey.pem",
         "Cert": "cert.pem",        
