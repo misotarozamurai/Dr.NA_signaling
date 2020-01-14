@@ -3,10 +3,12 @@
 import http from 'http'
 import {connects} from './socket'
 
-export const broadcast = message => {
-    connects.forEach((socket, i) => {
-        socket.send(message);
-    });
+export const broadcast = (message,sock) => {
+    connects
+        .filter(t=>t!==sock)
+        .forEach(socket => {
+            socket.send(message);
+        });
 }
 
 export const log = str => {

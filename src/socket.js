@@ -27,7 +27,7 @@ wsServer.on('connection', function connection(sock, req) {
     // ----- When receiving a message -----
     sock.on('message', message => {
         srv.log('received : ' + message);
-        srv.broadcast(message);
+        srv.broadcast(message,sock);
     });
 
     // ----- When the socket is disconnected -----
